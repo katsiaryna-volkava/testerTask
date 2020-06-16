@@ -1,5 +1,6 @@
 package com.integration.tests.demo.services;
 
+import com.integration.tests.demo.dtos.CarDTO;
 import com.integration.tests.demo.entities.Car;
 import com.integration.tests.demo.repositories.CarRepository;
 import org.springframework.stereotype.Service;
@@ -19,4 +20,10 @@ public class CarServiceImpl implements CarService {
         return carRepository.findAll();
     }
 
+    @Override
+    public void addCar(CarDTO carDTO) {
+        Car car = new Car();
+        car.setName(carDTO.getName());
+        carRepository.save(car);
+    }
 }
