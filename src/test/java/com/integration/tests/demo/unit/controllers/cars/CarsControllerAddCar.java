@@ -9,9 +9,4 @@ public class CarsControllerAddCar {
     public void shouldNotAddCarWithoutBody(){
 
     }
-
-
-
-
-
 }

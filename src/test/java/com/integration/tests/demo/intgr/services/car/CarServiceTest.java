@@ -26,7 +26,6 @@ public class CarServiceTest {
     @Autowired
     private CarServiceImpl carService;
 
-
     @BeforeEach
     public void setUpTestData() {
         Car car1 = new Car();
@@ -106,5 +105,4 @@ public class CarServiceTest {
     public void cleanTestData() {
         carRepository.deleteAll();
     }
-
 }

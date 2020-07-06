@@ -27,7 +27,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-
 @RunWith(SpringRunner.class)
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -103,11 +102,23 @@ public class CarsControllerTest {
     }
 
     @Test
-    public void shouldAnswer404_whenAllParametersRenderedAndBothNotValid() throws Exception {
+    public void shouldAnswer404_whenAllParametersRenderedAndBothDoNotValid() throws Exception {
     }
 
     @Test
     public void shouldAnswer404_whenAllParametersRenderedAndOneNotValid() throws Exception {
+    }
+
+    @Test
+    public void shouldAnswer400_whenAllParametersAreMissing() throws Exception {
+    }
+
+    @Test
+    public void shouldAnswer400_whenIdParameterIsMissing() throws Exception {
+    }
+
+    @Test
+    public void shouldAnswer400_whenNameParameterIsMissing() throws Exception {
     }
 
     @Test
