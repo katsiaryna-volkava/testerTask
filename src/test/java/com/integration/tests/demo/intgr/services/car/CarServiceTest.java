@@ -52,35 +52,27 @@ public class CarServiceTest {
 
     @Test
     public void searchCar_allCarsCanBeFetched_whenWithNoParameters() throws Exception {
-
-        // Mockito.doReturn(actual).when(carRepository.findById(1L));
-
         List<Car> expected = carService.search("", null);
         assertEquals(5, expected.size());
     }
 
     @Test
     public void searchCar_allMatchingCarsCanBeFetched_whenSearchByName() throws Exception {
-
         List<Car> expected = carService.search("test car", null);
         assertEquals(2, expected.size());
     }
 
     @Test
     public void searchCar_oneCarIsFetched_whenSearchById() throws Exception {
-
         List<Car> expected = carService.search("test car 2", null);
         assertEquals(1, expected.size());
     }
 
     @Test
     public void searchCar_shouldReturnEmptyArray_whenThereAreNoCars() throws Exception {
-        //    given(carRepository).willReturn((CarRepository) Collections.EMPTY_LIST);
-
         carRepository.deleteAll();
         List<Car> expected = carService.search("", null);
         assertEquals(0, expected.size());
-
     }
 
     @Test
@@ -91,7 +83,6 @@ public class CarServiceTest {
 
     @Test
     public void shouldAddCar() {
-
         CarDTO car = new CarDTO();
         car.setName("test");
 

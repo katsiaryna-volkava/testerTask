@@ -32,7 +32,6 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class CarsControllerTest {
-
     @Autowired
     private MockMvc mockMvc;
 
@@ -84,7 +83,6 @@ public class CarsControllerTest {
                 .andExpect(jsonPath("$[0].id").value("1"));
     }
 
-    // are they integration tests ?
     @Test
     public void shouldFetchData_byExistingName() throws Exception {
     }
@@ -206,16 +204,3 @@ public class CarsControllerTest {
                 .andExpect(status().is(405));
     }
 }
-
-// controller integration tests:
-
-// search get +
-// search delete , post , put -- -
-// search size
-// searched entities details
-// add post +
-// add get, put, delete -- -
-// actually added - size increased
-// added with correct details
-
-// all the rest - unit tests

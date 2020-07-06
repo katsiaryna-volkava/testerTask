@@ -20,8 +20,6 @@ import static org.junit.Assert.assertTrue;
 @DataJpaTest
 @AutoConfigureTestDatabase
 public class CarRepositoryTest {
-    // find car by name
-
     @Autowired
     private CarRepository carRepository;
 
