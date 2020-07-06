@@ -2,7 +2,6 @@ package com.integration.tests.demo.intgr.controllers.car;
 
 import com.integration.tests.demo.entities.Car;
 import com.integration.tests.demo.repositories.CarRepository;
-import com.integration.tests.demo.services.CarServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import org.junit.runner.RunWith;
@@ -86,6 +85,31 @@ public class CarsControllerTest {
                 .andExpect(jsonPath("$[0].id").value("1"));
     }
 
+    // are they integration tests ?
+    @Test
+    public void shouldFetchData_byExistingName() throws Exception {
+    }
+
+    @Test
+    public void shouldFetchData_byExistingId() throws Exception {
+    }
+
+    @Test
+    public void shouldAnswer404_whenByNameThatDoesNotExist() throws Exception {
+    }
+
+    @Test
+    public void shouldAnswer404_whenByIdThatDoesNotExist() throws Exception {
+    }
+
+    @Test
+    public void shouldAnswer404_whenAllParametersRenderedAndBothNotValid() throws Exception {
+    }
+
+    @Test
+    public void shouldAnswer404_whenAllParametersRenderedAndOneNotValid() throws Exception {
+    }
+
     @Test
     public void searchCars_should405WithPost() throws Exception {
 
@@ -117,7 +141,7 @@ public class CarsControllerTest {
     }
 
     @Test
-    public void shouldAddCar() throws Exception {
+    public void shouldAddCarWithName() throws Exception {
         MockHttpServletResponse response = mockMvc.perform(post("/addCar")
                 .contentType(MediaType.APPLICATION_JSON)
                 .content("{\"name\" : \"car1\"}"))
@@ -125,6 +149,27 @@ public class CarsControllerTest {
                 .andReturn().getResponse();
 
         assertThat(response.getStatus()).isEqualTo(200);
+    }
+
+    @Test
+    public void shouldReturn400_whenAddCarWithoutContent() throws Exception {
+        MockHttpServletResponse response = mockMvc.perform(post("/addCar")
+                .contentType(MediaType.APPLICATION_JSON))
+                .andDo(print())
+                .andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(400);
+    }
+
+    @Test
+    public void shouldReturn400_whenAddCarWithEmptyName() throws Exception {
+        MockHttpServletResponse response = mockMvc.perform(post("/addCar")
+                .contentType(MediaType.APPLICATION_JSON)
+                .content(""))
+                .andDo(print())
+                .andReturn().getResponse();
+
+        assertThat(response.getStatus()).isEqualTo(400);
     }
 
     @Test
