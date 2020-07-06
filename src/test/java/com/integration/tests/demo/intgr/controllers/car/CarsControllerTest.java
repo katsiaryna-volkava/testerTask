@@ -1,6 +1,7 @@
 package com.integration.tests.demo.intgr.controllers.car;
 
 import com.integration.tests.demo.entities.Car;
+import com.integration.tests.demo.repositories.CarRepository;
 import com.integration.tests.demo.services.CarServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
@@ -38,7 +39,7 @@ public class CarsControllerTest {
     private MockMvc mockMvc;
 
     @MockBean
-    private CarServiceImpl carService;
+    private CarRepository carRepository;
 
     private List<Car> carsListWith2Cars;
     private List<Car> carsListWith1Car;
@@ -62,7 +63,9 @@ public class CarsControllerTest {
 
     @Test
     public void searchCars_shouldFetchCars() throws Exception {
-        given(carService.search(null, null)).willReturn(carsListWith2Cars);
+
+        given(carRepository.findAll()).willReturn(carsListWith2Cars);
+
         this.mockMvc.perform(MockMvcRequestBuilders.get("/search"))
                 .andDo(print())
                 .andExpect(jsonPath("$.size()", is(2)));
@@ -70,7 +73,8 @@ public class CarsControllerTest {
 
     @Test
     public void searchCars_shouldFetchAllCarsWithCorrectInfo() throws Exception {
-        given(carService.search("test", 1L)).willReturn(carsListWith1Car);
+
+        given(carRepository.findAll()).willReturn(carsListWith1Car);
 
         this.mockMvc.perform(get("/search")
                 .param("id", "1")
@@ -84,7 +88,8 @@ public class CarsControllerTest {
 
     @Test
     public void searchCars_should405WithPost() throws Exception {
-        given(carService.search("test", 1L)).willReturn(carsListWith2Cars);
+
+        given(carRepository.findAll()).willReturn(carsListWith2Cars);
 
         this.mockMvc.perform(MockMvcRequestBuilders.post("/search"))
                 .andDo(print())
@@ -93,7 +98,9 @@ public class CarsControllerTest {
 
     @Test
     public void searchCars_should405WithPut() throws Exception {
-        given(carService.search("test", 1L)).willReturn(carsListWith2Cars);
+
+        given(carRepository.findAll()).willReturn(carsListWith2Cars);
+
         this.mockMvc.perform(put("/search"))
                 .andDo(print())
                 .andExpect(status().is(405));
@@ -101,7 +108,9 @@ public class CarsControllerTest {
 
     @Test
     public void searchCars_should405WithDelete() throws Exception {
-        given(carService.search("test", 1L)).willReturn(carsListWith2Cars);
+
+        given(carRepository.findAll()).willReturn(carsListWith2Cars);
+
         this.mockMvc.perform(put("/search"))
                 .andDo(print())
                 .andExpect(status().is(405));
