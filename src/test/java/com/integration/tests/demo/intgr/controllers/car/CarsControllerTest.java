@@ -32,6 +32,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 @AutoConfigureMockMvc
 @DirtiesContext(classMode = DirtiesContext.ClassMode.AFTER_EACH_TEST_METHOD)
 public class CarsControllerTest {
+
     @Autowired
     private MockMvc mockMvc;
 
@@ -60,7 +61,6 @@ public class CarsControllerTest {
 
     @Test
     public void searchCars_shouldFetchCars() throws Exception {
-
         given(carRepository.findAll()).willReturn(carsListWith2Cars);
 
         this.mockMvc.perform(MockMvcRequestBuilders.get("/search"))
@@ -70,7 +70,6 @@ public class CarsControllerTest {
 
     @Test
     public void searchCars_shouldFetchAllCarsWithCorrectInfo() throws Exception {
-
         given(carRepository.findAll()).willReturn(carsListWith1Car);
 
         this.mockMvc.perform(get("/search")

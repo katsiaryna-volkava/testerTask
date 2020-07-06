@@ -18,6 +18,8 @@ import java.util.List;
 
 import static org.junit.Assert.assertEquals;
 import static org.mockito.BDDMockito.given;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.when;
 
 @RunWith(SpringRunner.class)
 @SpringBootTest
@@ -34,7 +36,6 @@ public class CarServiceTest {
 
     @BeforeEach
     public void setUpTestData() {
-
         Car car = new Car();
         car.setName("test");
         car.setId(1L);
@@ -48,27 +49,6 @@ public class CarServiceTest {
         this.carsListWith2Cars.add(car);
         this.carsListWith2Cars.add(car2);
         this.carsListWith1Car.add(car);
-
-       /* Car car1 = new Car();
-        car1.setName("test car 1");
-
-        Car car2 = new Car();
-        car2.setName("test car 2");
-
-        Car car3 = new Car();
-        car3.setName("test car 3");
-
-        Car car4 = new Car();
-        car4.setName("test car");
-
-        Car car5 = new Car();
-        car5.setName("test car");
-
-        carRepository.save(car1);
-        carRepository.save(car2);
-        carRepository.save(car3);
-        carRepository.save(car4);
-        carRepository.save(car5);*/
     }
 
     @Test
@@ -116,14 +96,11 @@ public class CarServiceTest {
 
     @Test
     public void shouldAddCar() {
-        given(carRepository.findAll()).willReturn(carsListWith2Cars);
+        when(carRepository.save(any(Car.class))).thenReturn(new Car());
 
-        CarDTO car = new CarDTO();
-        car.setName("test car addition");
+        carService.addCar(new CarDTO());
+        int repoSize = carRepository.findAll().size();
 
-        carService.addCar(car);
-        int repoSizeAfterAdding = carRepository.findAll().size();
-
-        assertEquals(3, repoSizeAfterAdding);
+        assertEquals(1, repoSize);
     }
 }
