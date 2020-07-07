@@ -18,6 +18,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.hamcrest.Matchers.is;
@@ -70,24 +71,49 @@ public class CarsControllerTest {
 
     @Test
     public void searchCars_shouldFetchAllCarsWithCorrectInfo() throws Exception {
-        given(carRepository.findAll()).willReturn(carsListWith1Car);
+        Car newCar = new Car();
+        newCar.setId(2L);
+        newCar.setName("test 2");
+
+        given(carRepository.findCarsByName("test 2")).willReturn(carsListWith2Cars);
+        given(carRepository.findById(2L)).willReturn(Optional.of(newCar));
 
         this.mockMvc.perform(get("/search")
-                .param("id", "1")
-                .param("name", "test"))
+                .param("id", "2")
+                .param("name", "test 2"))
                 .andDo(print())
                 .andExpect(status().is(200))
                 .andExpect(jsonPath("$.size()", is(1)))
-                .andExpect(jsonPath("$[0].name").value("test"))
-                .andExpect(jsonPath("$[0].id").value("1"));
+                .andExpect(jsonPath("$[0].name").value("test 2"))
+                .andExpect(jsonPath("$[0].id").value("2"));
     }
 
     @Test
     public void shouldFetchData_byExistingName() throws Exception {
+        given(carRepository.findCarsByName("test")).willReturn(carsListWith1Car);
+
+        this.mockMvc.perform(get("/search")
+                .param("name", "test"))
+                .andDo(print())
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("$.size()", is(1)))
+                .andExpect(jsonPath("$[0].name").value("test"));
     }
 
     @Test
     public void shouldFetchData_byExistingId() throws Exception {
+        Car newCar = new Car();
+        newCar.setId(2L);
+        newCar.setName("test 2");
+
+        given(carRepository.findById(2L)).willReturn(Optional.of(newCar));
+
+        this.mockMvc.perform(get("/search")
+                .param("id", "2"))
+                .andDo(print())
+                .andExpect(status().is(200))
+                .andExpect(jsonPath("$.size()", is(1)))
+                .andExpect(jsonPath("$[0].id").value("2"));
     }
 
     @Test
